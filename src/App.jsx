@@ -4,21 +4,27 @@ import Booklist from "./Component/Booklist";
 import Form from "./Component/Form";
 
 function App() {
-  const [books, setBooks] = useState([]);
-  const [book, setBook] = useState({
-    title:'',
-    author:'',
-    edition:0
-  })
 
+  const [book, setBook] = useState({
+    title: "",
+    author: "",
+    edition: 0,
+  });
+
+  const [books, setBooks] = useState([]);
+
+  const [listUpdated, setListUpdated]=useState(false)
+  
+ 
   useEffect(() => {
-    const getBook = () => {
+    const getBooks = () => {
       fetch("http://localhost:9999/api")
         .then((res) => res.json())
         .then((res) => setBooks(res));
     };
-    getBook();
-  }, []);
+    getBooks();
+    setListUpdated(false)
+  }, [listUpdated]);
 
   return (
     <Fragment>
@@ -27,10 +33,10 @@ function App() {
         <div className="row">
           <div className="col-7">
             <h2 style={{ textAlign: "center" }}>Book list</h2>
-            <Booklist books={books} />
+            <Booklist books={books} book={book} setBook={setBook} setListUpdated={setListUpdated}/>
           </div>
           <div className="col-5">
-            <h2 style={{ textAlign: "center" }}>Form</h2>
+            <h2 style={{ textAlign: "center" }}>Book form</h2>
             <Form book={book} setBook={setBook} />
           </div>
         </div>

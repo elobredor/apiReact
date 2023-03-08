@@ -7,14 +7,14 @@ const Form = ({ book, setBook }) => {
       [e.target.name]: e.target.value,
     });
   };
-  let { title, author, edition } = book
+  let { title, author, edition } = book;
 
   const handleSubmit = () => {
     edition = parseInt(edition, 10);
     //data validation
     if (title === "" || author === "" || edition < 0) {
       alert("All fields are required");
-      return
+      return;
     }
 
     // query
@@ -24,9 +24,7 @@ const Form = ({ book, setBook }) => {
       body: JSON.stringify(book),
     };
 
-    fetch("http://localhost:9999/api", requestInit)
-      .then(res => res.text())
-      .then(res => console.log(res));
+    fetch("http://localhost:9999/api", requestInit).then((res) => res.text()).then(res=>alert(res));
 
     setBook({
       title: "",
